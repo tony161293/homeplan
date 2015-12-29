@@ -1,0 +1,184 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homeplan solutions administrator</title>
+  <!-- BOOTSTRAP STYLES-->
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+  <!-- FONTAWESOME STYLES-->
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+  <!-- MORRIS CHART STYLES-->
+  <link href="{% static  'js/morris/morris-0.4.3.min.css' %}" rel="stylesheet" />
+  <!-- CUSTOM STYLES-->
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+  <!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+<body>
+<div id="wrapper">
+<!-- /. NAV TOP  -->
+  <nav class="navbar-default navbar-side" role="navigation">
+    <div class="sidebar-collapse">
+      <ul class="nav" id="main-menu">
+        <li class="text-center">
+          <img src="{% static 'img/logo.png' %}" class="user-image img-responsive"/>
+        </li>
+        <li>
+          <a href="/backend/index">Categories add/list</a>
+        </li>
+        <li>
+          <a href="/backend/brand">Brands add/list</a>
+        </li>
+        <li>
+          <a  href="/backend/group">Group add/list</a>
+        </li>
+        <li>
+          <a  class="active-menu" href="/backend/product">Product add/list</a>
+        </li>
+        <li>
+          <a  href="supplier">Supplier add/list</a>
+        </li>
+        <li>
+          <a  href="usercontact.html">User contact history</a>
+        </li>
+        <li>
+          <a  href="vendororder.html">Vendor orders add/list</a>
+        </li>
+        <li>
+          <a  href="vendordetails.html">Vendor order details add/list</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- /. NAV SIDE  -->
+  <div id="page-wrapper" >
+    <div id="page-inner">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Dashboard</h2>
+        </div>
+      </div>     
+      <!-- /. ROW Form elements -->
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Form Elements -->
+          <div class="panel panel-default">
+            <div class="panel-heading">Add Product</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <form enctype="multipart/form-data" action="{% url 'add_product'%}" method="POST">
+                  {% csrf_token %}
+                    <span style="color:#F00;"></span>                         
+                    <div class="form-group">
+                      <label>Product Name</label>
+                      {{form.product_name|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                      <label>Brand</label>
+                      <br>
+                      {{form.product_brand|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                      <label>Category</label>
+                      <br>
+                      {{form.product_category|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                    	<label>Description</label>
+                    	<br>
+                    	{{form.product_description|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                      <label>Price</label>
+                      {{form.product_price|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                      <label>Featured</label>
+                      <br>
+                      {{form.product_feature|add_class:"form-control"}}
+                    </div>
+                    <div class="form-group">
+                      <label>Product Image</label>
+                      <br>
+                      {{form.product_image|add_class:"form-control"}}
+                    </div>
+                    <input type="submit" value="Confirm" class="btn btn-default">
+                  </form>
+                  <br />
+                </div>
+              </div>
+            </div>
+          </div>        
+        </div>
+      </div>
+      <!-- End Form Elements -->         
+    <!-- /. ROW  -->
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+        <!-- Advanced Tables -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+            Products
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                  <thead>
+                  <tr>
+                    <th>Sl No.</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {%for product in product %}
+                    <tr class="odd gradeX">
+                      <td style="width:5%";>{{product.id}}</td>
+                      <td style="width:20%";>{{product.product_name}}</td>
+                      <td style="width:20%";>{{product.product_description}}</td>
+                      <td style="width:20%";>{{product.product_price}}</td>
+                      <td style="width:10%";><img src="{{MEDIA_URL}}{{product.product_image}}" alt="Image" class="center-block img-responsive"></td>
+                      <td style="width:5%";class="center"><a href=""><img src="{% static 'img/edit.png' %}" width="16" height="16"></a></td>
+                      <td style="width:5%";class="center"><a href="product_remove/{{product.id}}"><img src="{% static 'img/delete.png' %}" width="16" height="16"></a></td>
+                    </tr>
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!--End Advanced Tables -->
+        </div>
+      </div>
+    </div>
+    <!-- /. PAGE INNER  -->
+  </div>
+  <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+
+
+
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="{% static 'js/jquery-1.10.2.js' %}"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="{% static 'js/jquery.metisMenu.js' %}"></script>
+<!-- MORRIS CHART SCRIPTS -->
+<script src="{% static 'js/morris/raphael-2.1.0.min.js' %}"></script>
+<script src="{% static 'js/morris/morris.js' %}"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
