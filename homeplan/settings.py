@@ -25,6 +25,9 @@ SECRET_KEY = 'ki0&2rdid0*e36c+3jedo5nxya&@!_r*w2&4gw0dnk5bvm)5gq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+TEMPLATE_DEBUG = True
+
+
 ALLOWED_HOSTS = []
 
 
@@ -76,12 +79,34 @@ WSGI_APPLICATION = 'homeplan.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+if not 'DATABASE_URL' in os.environ:
+
+    DEBUG = True
+
+    TEMPLATE_DEBUG = True
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
+else:
+
+    import dj_database_url
+
+    DEBUG = True
+
+    TEMPLATE_DEBUG = True
+
+    ALLOWED_HOSTS = ['*']
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
