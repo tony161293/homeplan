@@ -96,14 +96,14 @@ WSGI_APPLICATION = 'homeplan.wsgi.application'
 
 # else:
 
-    DEBUG = True
+DEBUG = True
 
-    TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = True
 
-    ALLOWED_HOSTS = ['*']
-    DATABASES = {
-        'default': dj_database_url.config()
-    }
+ALLOWED_HOSTS = ['*']
+DATABASES = {
+    'default': dj_database_url.config()
+}
 
 
 # Internationalization
