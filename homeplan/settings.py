@@ -81,29 +81,30 @@ WSGI_APPLICATION = 'homeplan.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 
-# if not 'DATABASE_URL' in os.environ:
 
-#     DEBUG = True
+if not 'DATABASE_URL' in os.environ:
 
-#     TEMPLATE_DEBUG = True
+    DEBUG = True
 
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
+    TEMPLATE_DEBUG = True
 
-# else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
-DEBUG = True
+else:
 
-TEMPLATE_DEBUG = True
+    DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-DATABASES = {
-    'default': dj_database_url.config()
-}
+    TEMPLATE_DEBUG = True
+
+    ALLOWED_HOSTS = ['*']
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
 
 
 # Internationalization
