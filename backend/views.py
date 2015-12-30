@@ -4,7 +4,7 @@ from backend.forms import *
 from django.conf import settings
 from backend.models import *
 from django.shortcuts import render_to_response
-# import pdb
+import pdb
 
 
 def add_category(request):
@@ -149,7 +149,7 @@ def add_vendor(request):
             vendor = VendorForm.save(form)
             vendor.save()
     else:
-        vendor = Vendor.objects.all()
+        vendors = Vendor.objects.all()
         form = VendorForm()
         context = RequestContext(request,
                                  {'form': form, 'vendor': vendors,
@@ -168,19 +168,18 @@ def add_vendor_order(request):
     form = VendorOrderForm()
     context = RequestContext(request, {'form': form, 'vendor': vendor_orders,
                                        'MEDIA_URL': settings.MEDIA_URL})
-    # pdb.set_trace()
     if request.method == 'POST':
         form = VendorOrderForm(request.POST, request.FILES)
         if form.is_valid():
             vendor_orders = VendorOrderForm.save(form)
             vendor_orders.save()
     else:
-        vendor_orders = Vendor.objects.all()
+        vendor_orders = VendorOrder.objects.all()
         form = VendorOrderForm()
         context = RequestContext(request,
                                  {'form': form, 'vendor': vendor_orders,
                                   'MEDIA_URL': settings.MEDIA_URL})
-    return render_to_response('backend/vendordetails.html',
+    return render_to_response('backend/vendororder.html',
                               context_instance=context)
 
 
