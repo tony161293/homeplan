@@ -60,3 +60,25 @@ class Supplier(models.Model):
 
     def __str__(self):
         return self.supplier_name
+
+
+# Vendor order details class
+class Vendor(models.Model):
+    sales_order_id = models.IntegerField(default=0)
+    order_date = models.DateTimeField()
+    project_id = models.IntegerField()
+    product_id = models.IntegerField()
+    product_quality = models.CharField(max_length=400)
+    remarks = models.TextField()
+
+    def __str__(self):
+        return self.sales_order_id
+
+
+class VendorOrder(models.Model):
+    order_id = models.IntegerField(default=0)
+    order_date = models.DateTimeField()
+    project_id = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.order_id

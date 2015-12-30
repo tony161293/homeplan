@@ -1,10 +1,10 @@
 from django.shortcuts import HttpResponseRedirect
 from django.template import RequestContext
-from backend.forms import CategoryForm, BrandForm, GroupForm, ProductForm, SupplierForm
+from backend.forms import *
 from django.conf import settings
 from backend.models import *
 from django.shortcuts import render_to_response
-import pdb
+# import pdb
 
 
 def add_category(request):
@@ -135,3 +135,60 @@ def add_supplier(request):
 def remove_supplier(request, id):
     Supplier.objects.get(id=id).delete()
     return HttpResponseRedirect('/backend/supplier')
+
+
+def add_vendor(request):
+    vendors = Vendor.objects.all()
+    form = VendorForm()
+    context = RequestContext(request, {'form': form, 'vendor': vendors,
+                                       'MEDIA_URL': settings.MEDIA_URL})
+    # pdb.set_trace()
+    if request.method == 'POST':
+        form = VendorForm(request.POST, request.FILES)
+        if form.is_valid():
+            vendor = VendorForm.save(form)
+            vendor.save()
+    else:
+        vendor = Vendor.objects.all()
+        form = VendorForm()
+        context = RequestContext(request,
+                                 {'form': form, 'vendor': vendors,
+                                  'MEDIA_URL': settings.MEDIA_URL})
+    return render_to_response('backend/vendordetails.html',
+                              context_instance=context)
+
+
+def remove_vendordetail(request, id):
+    Vendor.objects.get(id=id).delete()
+    return HttpResponseRedirect('/backend/vendordetails')
+
+
+def add_vendor_order(request):
+    vendor_orders = VendorOrder.objects.all()
+    form = VendorOrderForm()
+    context = RequestContext(request, {'form': form, 'vendor': vendor_orders,
+                                       'MEDIA_URL': settings.MEDIA_URL})
+    # pdb.set_trace()
+    if request.method == 'POST':
+        form = VendorOrderForm(request.POST, request.FILES)
+        if form.is_valid():
+            vendor_orders = VendorOrderForm.save(form)
+            vendor_orders.save()
+    else:
+        vendor_orders = Vendor.objects.all()
+        form = VendorOrderForm()
+        context = RequestContext(request,
+                                 {'form': form, 'vendor': vendor_orders,
+                                  'MEDIA_URL': settings.MEDIA_URL})
+    return render_to_response('backend/vendordetails.html',
+                              context_instance=context)
+
+
+def remove_vendororder(request, id):
+    VendorOrder.objects.get(id=id).delete()
+    return HttpResponseRedirect('/backend/vendororder')
+
+
+def usercontact(request):
+    context = RequestContext(request)
+    return render_to_response('backend/usercontact.html', context)

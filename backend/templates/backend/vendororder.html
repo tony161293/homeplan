@@ -1,4 +1,5 @@
-
+{% load staticfiles %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,13 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Homeplan solutions administrator</title>
   <!-- BOOTSTRAP STYLES-->
-  <link href="assets/css/bootstrap.css" rel="stylesheet" />
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
   <!-- FONTAWESOME STYLES-->
-  <link href="assets/css/font-awesome.css" rel="stylesheet" />
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
   <!-- MORRIS CHART STYLES-->
-  <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+  <link href="{% static  'js/morris/morris-0.4.3.min.css' %}" rel="stylesheet" />
   <!-- CUSTOM STYLES-->
-  <link href="assets/css/custom.css" rel="stylesheet" />
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
   <!-- GOOGLE FONTS-->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
@@ -23,31 +24,31 @@
     <div class="sidebar-collapse">
       <ul class="nav" id="main-menu">
         <li class="text-center">
-          <img src="assets/img/logo.png" class="user-image img-responsive"/>
+         <img src="{% static 'img/logo.png' %}" class="user-image img-responsive"/>
         </li>
         <li>
-          <a href="index.html">Categories add/list</a>
+          <a href="/backend">Categories add/list</a>
         </li>
         <li>
-          <a href="brand.html">Brands add/list</a>
+          <a href="/backend/brand">Brands add/list</a>
         </li>
         <li>
-          <a  href="group.html">Group add/list</a>
+          <a  href="/backend/group">Group add/list</a>
         </li>
         <li>
-          <a  href="product.html">Product add/list</a>
+          <a  href="/backend/product">Product add/list</a>
         </li>
         <li>
-          <a  href="supplier.html">Supplier add/list</a>
+          <a  href="/backend/supplier">Supplier add/list</a>
         </li>
         <li>
-          <a  href="usercontact.html">User contact history</a>
+          <a  href="/backend/usercontact">User contact history</a>
         </li>
         <li>
-          <a  class="active-menu" href="vendororder.html">Vendor orders add/list</a>
+          <a class="active-menu" href="/backend/vendororder">Vendor orders add/list</a>
         </li>
         <li>
-          <a  href="vendordetails.html">Vendor order details add/list</a>
+          <a  href="/backend/vendordetails">Vendor order details add/list</a>
         </li>
       </ul>
     </div>
@@ -69,19 +70,20 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-6">
-                  <form enctype="multipart/form-data" action="" method="POST">
+                  <form enctype="multipart/form-data" action="{% url 'add_vendor_order'%}" method="POST">
+                  {% csrf_token %}
                     <span style="color:#F00;"></span>                         
                     <div class="form-group">
                       <label>Sales order ID</label>
-                      <input type="text" name="" value="" class="form-control" placeholder="PLease Enter Order ID" />
+                      {{form.order_id|add_class:"form-control"}}
                     </div>
                     <div class="form-group">
                       <label>Order date</label>
-                      <input type="text" name="" value="" class="form-control" placeholder="PLease Enter order date" />
+                      {{form.order_date|add_class:"form-control"}}
                     </div>
                     <div class="form-group">
                       <label>Project ID</label>
-                      <input type="text" name="" value="" class="form-control" placeholder="PLease Enter project ID" />
+                      {{form.project_id|add_class:"form-control"}}
                     </div>
                     <input type="submit" value="Confirm" class="btn btn-default">
                   </form>
@@ -116,14 +118,16 @@
                   </tr>
                   </thead>
                   <tbody>
+                  {%for vendor in vendor %}
                     <tr class="odd gradeX">
-                      <td style="width:5%";>1</td>
-                      <td style="width:20%";>4234213</td>
-                      <td style="width:20%";>Jan 22, 2021</td>
-                      <td style="width:20%";>2343412</td>
-                      <td style="width:5%";class="center"><a href=""><img src="assets/img/edit.png" width="16" height="16"></a></td>
-                      <td style="width:5%";class="center"><a href=""><img src="assets/img/delete.gif" width="16" height="16"></a></td>
+                      <td style="width:5%";>{{vendor.id}}</td>
+                      <td style="width:20%";>{{vendor.order_id}}</td>
+                      <td style="width:20%";>{{vendor.order_date}}</td>
+                      <td style="width:20%";>{{vendor.project_id}}</td>
+                      <td style="width:5%";class="center"><a href=""><img src="{% static 'img/edit.png' %}" width="16" height="16"></a></td>
+                      <td style="width:5%";class="center"><a href="vendororder_remove/{{vendor.id}}"><img src="{% static 'img/delete.png' %}" width="16" height="16"></a></td>
                     </tr>
+                    {%endfor%}
                   </tbody>
                 </table>
               </div>

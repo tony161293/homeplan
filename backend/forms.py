@@ -50,8 +50,18 @@ class SupplierForm(forms.ModelForm):
 
     class Meta:
         model = Supplier
-        fields = ('supplier_name', 'supplier_person', 'supplier_title',
-                  'supplier_paddress', 'supplier_saddress', 'supplier_city',
-                  'supplier_state', 'supplier_pin', 'supplier_country',
-                  'supplier_phone', 'supplier_fax', 'supplier_email',
-                  'supplier_url', 'supplier_notes', 'supplier_image',)
+        fields = '__all__'
+
+
+class VendorForm(forms.ModelForm):
+
+    class Meta:
+        model = Vendor
+        fields = '__all__'
+
+
+class VendorOrderForm(forms.ModelForm):
+
+    class Meta:
+        model = VendorOrder
+        fields = '__all__'
