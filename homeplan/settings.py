@@ -90,8 +90,12 @@ if not 'DATABASE_URL' in os.environ:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'homeplan',
+            'USER': 'admin',
+            'PASSWORD': 'tony123',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 
@@ -106,16 +110,7 @@ else:
         'default': dj_database_url.config()
     }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'homeplan',
-#         'USER': 'admin',
-#         'PASSWORD': 'tony123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
