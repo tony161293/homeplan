@@ -82,40 +82,40 @@ WSGI_APPLICATION = 'homeplan.wsgi.application'
 
 
 
-# if not 'DATABASE_URL' in os.environ:
+if not 'DATABASE_URL' in os.environ:
 
-#     DEBUG = True
+    DEBUG = True
 
-#     TEMPLATE_DEBUG = True
+    TEMPLATE_DEBUG = True
 
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-
-# else:
-
-#     DEBUG = True
-
-#     TEMPLATE_DEBUG = True
-
-#     ALLOWED_HOSTS = ['*']
-#     DATABASES = {
-#         'default': dj_database_url.config()
-#     }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'homeplan',
-        'USER': 'admin',
-        'PASSWORD': 'tony123',
-        'HOST': 'localhost',
-        'PORT': '',
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
+else:
+
+    DEBUG = True
+
+    TEMPLATE_DEBUG = True
+
+    ALLOWED_HOSTS = ['*']
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'homeplan',
+#         'USER': 'admin',
+#         'PASSWORD': 'tony123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
