@@ -4,7 +4,7 @@ from backend.forms import *
 from django.conf import settings
 from backend.models import *
 from django.shortcuts import render_to_response
-import pdb
+# import pdb
 
 
 def add_category(request):
